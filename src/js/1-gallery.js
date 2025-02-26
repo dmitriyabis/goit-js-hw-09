@@ -1,3 +1,6 @@
+import SimpleLightbox from 'simplelightbox';
+
+import 'simplelightbox/dist/simple-lightbox.min.css';
 const images = [
   {
     preview:
@@ -72,7 +75,6 @@ function imageTemplate(image) {
         <img
           class="gallery-image"
           src='${image.preview}'
-          data-source='${image.original}'
           alt='${image.description}'
         />
       </a>
@@ -85,22 +87,14 @@ function imagesTemplate(images) {
 }
 
 imagesList.insertAdjacentHTML('afterbegin', imagesTemplate(images));
-imagesList.addEventListener('click', event => {
-  event.preventDefault();
-  const clickedImage = event.target;
 
-  if (clickedImage.classList.contains('gallery-image')) {
-    const LargeImegeURL = clickedImage.dataset.source;
-    console.log('open-modal', LargeImegeURL);
-    const instance = basicLightbox.create(`
-     <img src='${LargeImegeURL}' alt='${clickedImage.alt}'>
-    `);
-    instance.show();
-    document.addEventListener('keydown', function onEscPress(event) {
-      if (event.key === 'Escape') {
-        instance.close();
-        document.removeEventListener('keydown', onEscPress);
-      }
-    });
-  }
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  captionPosition: 'bottom',
+  overlayOpacity: 1,
+  showCounter: false,
+});
+lightbox.on('shown.simplelightbox', function () {
+  document.querySelector('.sl-wrapper').style.background = '#2E2F42';
 });
