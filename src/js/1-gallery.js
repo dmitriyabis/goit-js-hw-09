@@ -91,9 +91,6 @@ imagesList.insertAdjacentHTML('afterbegin', imagesTemplate(images));
 const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
-  captionPosition: 'bottom',
-  overlayOpacity: 1,
-  showCounter: false,
 });
 lightbox.on('shown.simplelightbox', function () {
   document.querySelector('.sl-wrapper').style.background = '#2E2F42';
